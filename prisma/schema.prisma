@@ -1,0 +1,70 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String?
+  createdAt DateTime @default(now())
+}
+
+// Blog Yazıları (Haberler)
+model Post {
+  id          String   @id @default(cuid())
+  title       String
+  content     String
+  slug        String   @unique
+  published   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  category    Category? @relation(fields: [categoryId], references: [id])
+  categoryId  String?
+  
+  tags        Tag[]    // Yazı Etiketleri
+}
+
+// YENİ: Sabit Sayfalar (Hakkımızda vb.)
+model Page {
+  id        String   @id @default(cuid())
+  title     String
+  content   String
+  slug      String   @unique
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  tags      Tag[]    // Sayfa Etiketleri (İstediğin özellik)
+}
+
+model Category {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  slug        String   @unique
+  description String?
+  posts       Post[]
+}
+
+model Tag {
+  id    String @id @default(cuid())
+  name  String @unique
+  slug  String @unique
+  posts Post[] // Yazılarla ilişki
+  pages Page[] // YENİ: Sayfalarla ilişki
+}
+// Menü Linkleri (Header ve Footer için)
+model MenuItem {
+  id        String   @id @default(cuid())
+  title     String   // Linkin adı (Örn: Hakkımızda)
+  url       String   // Nereye gidecek? (Örn: /hakkimizda)
+  location  String   // Nerede duracak? (HEADER veya FOOTER)
+  order     Int      @default(0) // Sıralama için
+  createdAt DateTime @default(now())
+}

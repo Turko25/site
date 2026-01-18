@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* WORDPRESS ADMIN CORE VARIABLES */
+:root {
+  --wp-admin-theme-color: #007cba; /* WP Mavisi */
+  --wp-admin-theme-color-dark: #006ba1;
+  --wp-admin-bar-height: 32px; /* WP Admin Bar Yüksekliği sabittir */
+  --wp-sidebar-width: 160px;   /* WP Sidebar Genişliği sabittir */
+  --wp-body-bg: #f0f0f1;       /* O meşhur gri arka plan */
+  --wp-text-color: #3c434a;    /* Metin rengi */
+  --wp-border-color: #c3c4c7;  /* Border rengi */
+}
+
+body {
+  background-color: var(--wp-body-bg);
+  color: var(--wp-text-color);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif; /* WP Font Stack */
+  font-size: 13px; /* WP Admin font boyutu 13px'tir */
+}
+
+/* WP Tarzı Linkler */
+a {
+  color: var(--wp-admin-theme-color);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--wp-admin-theme-color-dark);
+}
+
+/* Admin Bar içindeki linkler beyazdır */
+#wpadminbar a {
+  color: #f0f0f1;
+}
+#wpadminbar a:hover {
+  color: #72aee6;
+}
